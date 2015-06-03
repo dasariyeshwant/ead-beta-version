@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-lg-8 col-md-8 col-sm-8 col-lg-offset-2 col-md-offset-2 col-sm-offset-2">
+		<div id="form-container">
+			<div class="page-header">
+				<h2 class="text-center">Enter the following details</h2>
+				 <!-- the links to our nested states using relative paths -->
+            <!-- add the active class if the state matches our ui-sref -->
+	            <div id="status-buttons" class="text-center link-colors">
+	                <a ui-sref-active="active" ui-sref="/registration_form.signUp"><span>1</span> Setup</a>
+	                <a ui-sref-active="active" ui-sref="/registration_form.personalDetails" ng-disabled="myForm.email.$invalid"><span>2</span> Personal Details</a>
+	                <a ui-sref-active="active" ui-sref="/form.qualifications"><span>3</span> Qualifications</a>
+	                 <a ui-sref-active="active" ui-sref="/registration_form.skills"><span>3</span> Skills</a>
+	                  <a ui-sref-active="active" ui-sref="/form.visaStatus"><span>3</span> Visa Details</a>
+	                   <a ui-sref-active="active" ui-sref="/form.resume"><span>3</span> Resume</a>
+	            </div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+<div class="container">
+	<form name="myForm" role="form" class="form-horizontal" id="signup-form" ng-submit="createMeetup()" enctype="multipart/form-data" novalidate>
+				   <!-- our nested state views will be injected here -->
+
+   <div class="form-elements" id="form-views" ui-view></div>
+</form>
+</div>

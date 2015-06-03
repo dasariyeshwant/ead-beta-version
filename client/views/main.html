@@ -1,0 +1,10 @@
+ <div>
+        <h1>There are {{employees.length}} meetups</h1>
+        <ul>
+          <li ng-repeat="employee in employees">
+            {{employee.first_name}}
+          </li>
+        </ul>
+        <a ui-sref="/registration_form.signUp"><h3>Sign up</h3></a>
+        
+      </div>
