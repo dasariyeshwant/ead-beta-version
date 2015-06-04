@@ -1,9 +1,10 @@
 app.controller('mainCrl', ['$scope', '$resource', '$location', 'AddEmployee', function ($scope, $resource, $location, AddEmployee) {
- $scope.skill_set = [{id: 'skill1'}];
+ //$scope.model = {};
+ $scope.skill_set = [];
 
   $scope.addNewSkill = function() {
-    var newItemNo = $scope.skill_set.length+1;
-    $scope.skill_set.push({'skill_name':''});
+   var newItemNo = $scope.skill_set.length+1;
+    $scope.skill_set.push({});
   };
     
   $scope.removeSkill = function() {
@@ -18,7 +19,7 @@ app.controller('mainCrl', ['$scope', '$resource', '$location', 'AddEmployee', fu
   // var employeeSkills = {'skill_name': skillNames};
   //   console.log('skill set are' +employeeSkills);
 
-  var Employee = $resource('/api/meetups');
+  var Employee = $resource('/api/employeeRegistration');
 
   Employee.query(function (results) {
     $scope.employees = results;
@@ -42,7 +43,7 @@ app.controller('mainCrl', ['$scope', '$resource', '$location', 'AddEmployee', fu
     employee.mobile_number = $scope.mobile_number;
     console.log("the skill set is"+ $scope.skill_set);
     employee.skills =[{'skill_name': $scope.skill_set}] ;
-    
+    //employee.skills.skill_name = $scope.model.skill_set;
     employee.address = $scope.address;
     employee.$save(function (result) {
       $scope.employees.push(result);
@@ -50,6 +51,7 @@ app.controller('mainCrl', ['$scope', '$resource', '$location', 'AddEmployee', fu
       $location.path("success");
     });
   }
+  
 }]);
 
 app.controller('secondCrl', ['$scope', '$resource', '$location', 'AddEmployee', function ($scope, $resource, $location, AddEmployee){
@@ -79,6 +81,11 @@ app.config(function($stateProvider, $urlRouterProvider){
       url:'/registration_form.personalDetails',
       templateUrl:'personalDetails.html',
       controller:'secondCrl'
+    })
+    .state('/registration_form.qualifications',{
+      url:'/registration_form.qualifications',
+      templateUrl:'qualifications.html',
+      controller: 'mainCrl'
     })
     .state('/registration_form.skills',{
       url:'/registration_form.skills',

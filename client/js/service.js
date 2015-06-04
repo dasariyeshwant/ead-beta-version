@@ -1,6 +1,6 @@
 var EmployeeService = angular.module('EmployeeService',[])
 	.service('AddEmployee', function($resource){
-		 var Employee = $resource('/api/meetups');
+		 var Employee = $resource('/api/employeeRegistration');
 		 	var emp_email="";
 		 	var usr_password="";
 		this.email = function(email, password){
