@@ -2,22 +2,43 @@ var express           = require('express'),
     app               = express(),
     bodyParser        = require('body-parser'),
     mongoose          = require('mongoose'),
+    passport		  = require('passport'),
+    flash    = require('connect-flash'),
+    cookieParser = require('cookie-parser'),
+    session      = require('express-session'),
     employeeRegistrationController = require('./server/controllers/employees-controller');
 
 mongoose.connect('mongodb://localhost:27017/ead-beta');
 
 app.use(bodyParser());
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/client/views/index.html');
-});
+require('./config/passport')(passport); // pass passport for configuration
 
 app.use('/js', express.static(__dirname + '/client/js'));
+ app.use(express.static(__dirname + '/client/css'));
+ app.use(express.static(__dirname + '/client/images'));
  app.use(express.static(__dirname + '/client/views'));
-//REST API
-app.get('/api/employeeRegistration', employeeRegistrationController.list);
-app.post('/api/employeeRegistration', employeeRegistrationController.create);
+ app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
+// //REST API
+// app.get('/api/employeeRegistration', employeeRegistrationController.list);
+// app.post('/api/employeeRegistration', employeeRegistrationController.create);
+
+// required for passport
+ app.use(cookieParser()); // read cookies (needed for auth)
+
+app.use(session({
+    secret: 'ilovescotchscotchyscotchscotch',
+    resave: true,
+    saveUninitialized: true
+}));
+
+//app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+require('./server/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 app.listen(3000, function() {
   console.log('I\'m Listening...');
 })

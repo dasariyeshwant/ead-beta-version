@@ -1,0 +1,11 @@
+.ead-banner{
+	background: Url('banner_ead.jpg')no-repeat cover fixed;
+	width: 100% auto;
+	height: 400px;
+
+}
+
+.hello{
+	font-size: 72px;
+	font-style: italic;
+}
