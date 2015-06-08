@@ -1,6 +1,21 @@
-app.controller('mainCrl', ['$scope', '$resource', '$location', 'AddEmployee', function ($scope, $resource, $location, AddEmployee) {
+app.controller('mainCrl', ['$scope','$http', '$resource', '$location', 'AddEmployee', function ($scope,$http, $resource, $location, AddEmployee) {
  //$scope.model = {};
  $scope.skill_set = [];
+
+
+ $scope.createUser = function(){
+  $http.post('/signup',{
+    email: $scope.employeeEmail,
+    password: $scope.employeePassword,
+    fName:    $scope.fName,
+    lName:    $scope.lName
+  }).success(function(data){
+    if(data.message === 'successful signup'){
+      $location.path('/profile');
+    }
+  });
+ };
+
 
 //   // $scope.addNewSkill = function() {
 //   //  var newItemNo = $scope.skill_set.length+1;

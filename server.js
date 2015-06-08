@@ -8,7 +8,7 @@ var express           = require('express'),
     session      = require('express-session'),
     employeeRegistrationController = require('./server/controllers/employees-controller');
 
-mongoose.connect('mongodb://localhost:27017/ead-beta');
+mongoose.connect('mongodb://localhost:27017/ead-beta-v1');
 
 app.use(bodyParser());
 

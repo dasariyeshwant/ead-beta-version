@@ -1,4 +1,4 @@
- <form role="form" action="/signup" method="post">
+ <form role="form" ng-submit="createUser()" method="post">
        <div class="form-group">
 	<div class="row">
 		<label class="control-label col-lg-2 col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">Email</label>
@@ -15,6 +15,28 @@
 		<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">Password</label>
 		<div class="col-lg-6 col-md-6 col-sm-6">
 			<input type="password" name="password" ng-model="employeePassword" class="form-control" required>
+			<span ng-show="myForm.password.$error.required">Password is required</span>
+		</div>
+		
+	</div>
+	
+</div>
+<div class="form-group">
+	<div class="row">
+		<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">first Name</label>
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<input type="text" name="fName" ng-model="fName" class="form-control" required>
+			<span ng-show="myForm.password.$error.required">Password is required</span>
+		</div>
+		
+	</div>
+	
+</div>
+<div class="form-group">
+	<div class="row">
+		<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">last Name</label>
+		<div class="col-lg-6 col-md-6 col-sm-6">
+			<input type="text" name="lName" ng-model="lName" class="form-control" required>
 			<span ng-show="myForm.password.$error.required">Password is required</span>
 		</div>
 		
