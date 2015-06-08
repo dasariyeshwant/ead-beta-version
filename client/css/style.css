@@ -9,3 +9,58 @@
 	font-size: 72px;
 	font-style: italic;
 }
+
+.register-form{
+
+	border: 1px;
+	padding: 100px 100px 100px 100px;
+	background: #ececec;
+}
+
+.input-group{
+	margin-bottom: 25px;
+}
+
+.signup-page{
+	background: #D6C0A7;
+	padding-bottom: 150px;
+}
+
+.signup-midway{
+	background: #ffffff;
+	width: 30%;
+	padding: 30px 50px 100px 50px;
+	margin-top: 150px;
+	margin-left: 200px;
+	
+}
+
+.ead-hub{
+	font-family: "Lato","Helvetica Neue","Helvetica",Arial,sans-serif;
+	text-align: center;
+	
+}
+
+.signup-btn, .signin-btn{
+	margin-top: 50px;
+	width: 40%;
+
+}
+hr.thin{
+	height: 2px;
+	color: black;
+	padding-bottom: 50px; 
+}
+
+.login-page{
+	background: #ecf0f1;
+	padding-bottom: 150px;
+}
+
+.login-midway{
+	background: #ffffff;
+	width: 30%;
+	padding: 30px 50px 100px 50px;
+	margin-top: 150px;
+	margin-left: 200px;
+}
