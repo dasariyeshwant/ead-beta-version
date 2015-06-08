@@ -16,6 +16,21 @@ app.controller('mainCrl', ['$scope','$http', '$resource', '$location', 'AddEmplo
   });
  };
 
+ $scope.userLogin =function(){
+  $http.post('/login',{
+    email: $scope.employeeEmail,
+    password: $scope.employeePassword
+  }).success(function(data){
+    if(data.message ==='successful login'){
+      $location.path('/profile');
+    }
+  });
+ };
+
+
+
+
+
 
 //   // $scope.addNewSkill = function() {
 //   //  var newItemNo = $scope.skill_set.length+1;

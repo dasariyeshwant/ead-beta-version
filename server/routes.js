@@ -47,11 +47,34 @@ app.get('/#/profile', function (req, res) {
 
 
  // process the login form
-        app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/#/profile', // redirect to the secure profile section
-            failureRedirect : '/#/login', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
-        }));
+
+
+ 		app.post('/login', function(req, res, next){
+ 			passport.authenticate('local-login', function(err, user, info){
+ 				if(err){
+ 					return next(err);
+ 				}
+ 				if(!user){
+ 					res.send({
+ 						message:'no user'
+ 					});
+ 				}
+ 				req.login(user, function(err){
+ 					if(err){
+ 						return next(err);
+ 					}
+ 					res.send({
+ 						message: 'successful login'
+ 					});
+ 				});	
+ 			})(req, res, next);
+ 		});
+
+        // app.post('/login', passport.authenticate('local-login', {
+        //     successRedirect : '/#/profile', // redirect to the secure profile section
+        //     failureRedirect : '/#/login', // redirect back to the signup page if there is an error
+        //     failureFlash : true // allow flash messages
+        // }));
 
 };
 
