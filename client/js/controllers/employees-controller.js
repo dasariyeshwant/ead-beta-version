@@ -3,32 +3,48 @@ app.controller('mainCrl', ['$scope','$http', '$resource', '$location', 'AddEmplo
  $scope.skill_set = [];
 
 
+ // $scope.createUser = function(){
+ //  $http.post('/signup',{
+ //    email: $scope.employeeEmail,
+ //    password: $scope.employeePassword,
+ //    fName:    $scope.fName,
+ //    lName:    $scope.lName
+ //  }).success(function(data){
+ //    if(data.message === 'successful signup'){
+ //      $location.path('/profile');
+ //    }
+ //  });
+ // };
+
+
  $scope.createUser = function(){
-  $http.post('/signup',{
-    email: $scope.employeeEmail,
-    password: $scope.employeePassword,
-    fName:    $scope.fName,
-    lName:    $scope.lName
-  }).success(function(data){
-    if(data.message === 'successful signup'){
-      $location.path('/profile');
-    }
-  });
+  $scope.signup = AddEmployee.addDetails($scope.employeeEmail, $scope.employeePassword, $scope.fName, $scope.lName);
  };
+//$scope.myProfile = {};
 
- $scope.userLogin =function(){
-  $http.post('/login',{
-    email: $scope.employeeEmail,
-    password: $scope.employeePassword
-  }).success(function(data){
-    if(data.message ==='successful login'){
-      $location.path('/profile');
-    }
-  });
- };
+ //  var getProfileData = function(){
+ //  $http.get('/api/profile').success(function(data){
+ //    console.log('data of user',data);
+ //  });
+ // }
+
+ // $scope.userLogin =function(){
+ //  $http.post('/login',{
+ //    email: $scope.employeeEmail,
+ //    password: $scope.employeePassword
+ //  }).success(function(data){
+ //    console.log("this is: "+data.username);
+ //    $scope.first_name = data.username;
+ //    if(data.message ==='successful login'){
+ //      $location.path('/profile');
+ //    }
+ //  });
+ // };
 
 
-
+$scope.userLogin = function(){
+  $scope.login = AddEmployee.userDetails($scope.employeeEmail, $scope.employeePassword);
+};
 
 
 
@@ -84,19 +100,23 @@ app.controller('mainCrl', ['$scope','$http', '$resource', '$location', 'AddEmplo
   
 }]);
 
-// // app.controller('secondCrl', ['$scope', '$resource', '$location', 'AddEmployee', function ($scope, $resource, $location, AddEmployee){
-// //  $scope.secondSection = function(){
-// //       $scope.first_name = AddEmployee.personal($scope.first_name);
-// //   };
-// // }]);
+app.controller('secondCrl', ['$scope', '$resource', '$location', 'AddEmployee', function ($scope, $resource, $location, AddEmployee){
+      
+      var init = function(){
+          $scope.first_name = AddEmployee.personal;
+          console.log("welcome : "+name);
+      };    
+      init();
+      
+}]);
 
 app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
-    .state('/',{
-      url:'/',
-      templateUrl:'index.html',
-      controller: 'mainCrl'
-    })
+    // .state('/',{
+    //   url:'/',
+    //   templateUrl:'index.html',
+    //   controller: 'mainCrl'
+    // })
     .state('/signup',{
       url:'/signup',
       templateUrl: 'signUp.html',
@@ -105,7 +125,8 @@ app.config(function($stateProvider, $urlRouterProvider){
     .state('/profile',{
       url:'/profile',
       templateUrl:'sample.html',
-      controller:'mainCrl'
+      controller:'secondCrl'
+      // resolve : {profile:function(c){console.log('called');}}
     })
     .state('/login',{
       url:'/login',
