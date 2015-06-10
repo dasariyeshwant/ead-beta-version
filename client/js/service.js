@@ -15,6 +15,7 @@ var EmployeeService = angular.module('EmployeeService',[])
 					$localStorage.profile.user_id = data.user._id;
 					$localStorage.profile.fname = data.user.local.fName;
 					$localStorage.profile.lname = data.user.local.lName;
+
      			 $location.path('/profile/details');
    				}
 			});
@@ -41,6 +42,8 @@ var EmployeeService = angular.module('EmployeeService',[])
 
 				$localStorage.profile.fname = data.user.local.fName;
 				$localStorage.profile.lname = data.user.local.lName;
+				$localStorage.profile.mobile_number = data.user.profile.mobile_number;
+				$localStorage.profile.address = data.user.profile.address;
 				if(data.message ==='successful login'){
 
 				console.log("username1: "+first_name);

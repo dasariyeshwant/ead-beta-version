@@ -16,7 +16,8 @@ module.exports.update = function(req, res){
 		{$set:{	'local.fName': req.body.profile.fname,
 				'local.lName': req.body.profile.lname,
 		 		'profile.mobile_number':req.body.profile.mobile_number,
-		  		'profile.address': req.body.profile.address}}, function(err, user){
+		  		'profile.address': req.body.profile.address,
+		  		'profile.education':[{'school_name':req.body.profile.school_name}]}}, function(err, user){
 			if(err) return handleError(err);
 			res.send(user);		
 		});
