@@ -15,9 +15,9 @@ app.get('/#/profile', function (req, res) {
 });
 
  // PROFILE SECTION =========================
-    app.get('/api/profile', isLoggedIn, function(req, res) {
-        res.json( req.user);
-    });
+    // app.get('/api/profile', isLoggedIn, function(req, res) {
+    //     res.json( req.user);
+    // });
         // process the signup form
 
         app.post('/signup', function(req, res, next){
@@ -63,7 +63,9 @@ app.get('/#/profile', function (req, res) {
  					}
  					res.send({
  						message: 'successful login',
- 						username: user.local.fName
+ 						user: user
+ 						// firstName: user.local.fName,
+ 						// lastName: user.local.lName
  					});
  				});	
  			})(req, res, next);
@@ -74,6 +76,10 @@ app.get('/#/profile', function (req, res) {
         //     failureRedirect : '/#/login', // redirect back to the signup page if there is an error
         //     failureFlash : true // allow flash messages
         // }));
+
+		
+
+
 
 };
 

@@ -1,0 +1,35 @@
+<div class="form-group">
+			<div class="row">
+				<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">Applied for EAD(h4)?</label>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<select class="form-control" ng-model="ead_status" value="{{ead_status}}">Select yes or no
+						<option>Yes</option>
+						<option>No</option>
+					</select>
+				</div>
+			</div>
+</div>
+
+<div class="form-group">
+			<div class="row">
+				<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">Spouse Current H1B Validity</label>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<input type="date" ng-model="spouse_h1b" value="{{spouse_h1b}}" class="form-control">
+				</div>
+			</div>
+</div>
+<div class="form-group">
+			<div class="row">
+				<label class="control-label col-md-2 col-sm-2 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">Last Entry Date to Us</label>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<input type="date" ng-model="last_entry" value="{{last_entry}}" class="form-control">
+				</div>
+			</div>
+</div>
+<div class="form-group row">
+			<div class="col-xs-6 col-xs-offset-3">
+			    <a ui-sref="" ng-click="saveVisaStatus()" class="btn btn-block btn-success">
+			    Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+			    </a>
+			</div>
+</div>

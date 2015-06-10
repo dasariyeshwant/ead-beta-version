@@ -1,1 +1,1 @@
-var app = angular.module('meetupApp', ['ngResource','ui.router','EmployeeService'])
+var app = angular.module('meetupApp', ['ngResource','ui.router','EmployeeService', 'ngStorage'])

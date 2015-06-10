@@ -1,5 +1,5 @@
 var EmployeeService = angular.module('EmployeeService',[])
-	.service('AddEmployee', function($http, $location){
+	.service('AddEmployee', function($http, $location, $localStorage){
 			var first_name="";
 			var usr_details="";
 		
@@ -11,7 +11,7 @@ var EmployeeService = angular.module('EmployeeService',[])
 				lName: lname
 			}).success(function(data){
 				if(data.message === 'successful signup'){
-     			 $location.path('/profile');
+     			 $location.path('/profile/details');
    				}
 			});
 		};	
@@ -23,17 +23,27 @@ var EmployeeService = angular.module('EmployeeService',[])
 				email: user_email,
 				password: user_password
 			}).success(function(data){
-				 console.log("this is: "+data.username);
-				first_name = data.username;
+				 console.log("this is: "+data.user.local.fName);
+				 console.log("this is: "+data.user._id);
+				 $localStorage.user_id = data.user._id;
+				 $localStorage.user= data.user;
+				first_name = data.user.local.fName;
+			// 	$localStorage.profile = {first_name: "",
+			// 	last_name:"",
+
+			// }
+				$localStorage.fname = data.user.local.fName;
+				$localStorage.lname = data.user.local.lName;
 				if(data.message ==='successful login'){
+
 				console.log("username1: "+first_name);
-      			$location.path('/profile');
+      			$location.path('/profile/details');
       			return first_name;
       			
       			}
 
 			});
-			return first_name;	
+			
 		};
 
 

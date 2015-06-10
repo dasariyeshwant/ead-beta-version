@@ -8,7 +8,7 @@ var express           = require('express'),
     session      = require('express-session'),
     employeeRegistrationController = require('./server/controllers/employees-controller');
 
-mongoose.connect('mongodb://localhost:27017/ead-beta-v1');
+mongoose.connect('mongodb://localhost:27017/ead-beta-v3');
 
 app.use(bodyParser());
 
@@ -24,6 +24,8 @@ app.engine('html', require('ejs').renderFile);
 // //REST API
 // app.get('/api/employeeRegistration', employeeRegistrationController.list);
 // app.post('/api/employeeRegistration', employeeRegistrationController.create);
+
+app.post('/update', employeeRegistrationController.update);
 
 // required for passport
  app.use(cookieParser()); // read cookies (needed for auth)

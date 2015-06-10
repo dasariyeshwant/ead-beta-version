@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
         email        : String,
         password     : String,
         fName        : String,
-        lName        : String 
+        lName        : String,
+        address      : String 
     },
     facebook         : {
         id           : String,
@@ -28,9 +29,23 @@ var userSchema = mongoose.Schema({
         token        : String,
         email        : String,
         name         : String
+    },
+    profile          : {
+        mobile_number: String,
+        address      : String,
+        education: [{school_name: String, passout_year: Number, degree: String, field_of_study: String, grade: String}],
+        employement_history: [{company_name: String, duration_from: Number, duration_till: Number, title: String, location: String, description: String}],
+        skills:[{skill_name: String}],
+        ead_status: String,
+        spouse_h1b_validity: Date,
+        last_entry_date: Date,
+        resume: String,
+        reference: String
     }
 
 });
+
+
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
