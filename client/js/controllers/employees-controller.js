@@ -106,10 +106,11 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
       var init = function(){
 
         //personal Details
-           $scope.first_name = $localStorage.fname; 
-           $scope.last_name = $localStorage.lname;
+           $scope.first_name = $localStorage.profile.fname; 
+           $scope.last_name = $localStorage.profile.lname;
+
            $scope.mobile_number = $localStorage.profile.mobile_number;
-           $scope.address = $localStorage.profile.address;
+            $scope.address = $localStorage.profile.address;
         //educational Details
            $scope.school_name = $localStorage.profile.school_name;
            $scope.passout_year = $localStorage.profile.passout_year;
@@ -131,7 +132,7 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
            $scope.last_entry = $localStorage.profile.last_entry;
         //resume details
            $scope.reference = $localStorage.profile.reference;
-          // $scope.first_name = AddEmployee.personal;
+          //$scope.first_name = AddEmployee.personal;
           console.log("welcome : "+$scope.first_name);
       };    
       init();
@@ -151,8 +152,8 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
 
       $scope.savePersonalDetails = function(){
         
-        $localStorage.profile.first_name = $localStorage.fname;
-        $localStorage.profile.last_name = $localStorage.lname;
+        $localStorage.profile.fname = $localStorage.profile.fname;
+        $localStorage.profile.lname = $localStorage.profile.lname;
          $localStorage.profile.mobile_number = $scope.mobile_number;
          $localStorage.profile.address = $scope.address;
          $location.path('/profile/qualifications');
@@ -188,6 +189,25 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
       }
 
 
+      $scope.logOut = function(){
+        $http.get('/logout').success(function(response){
+          if(response.message === 'logged out'){
+            delete $localStorage.profile;
+            // delete $localStorage.fname;
+            // delete $localStorage.lname;
+            // delete $localStorage.user;
+            // delete $localStorage.user_id;
+            // delete $localStorage.first_name;
+            // delete $localStorage.last_name;
+            //$localStorage.save();
+            //$window.location.reload();
+            console.log("successfully logged out");
+
+            $location.path('/');
+          }
+          
+        });
+      };
 }]);
 
 app.config(function($stateProvider, $urlRouterProvider){

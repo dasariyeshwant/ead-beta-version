@@ -27,14 +27,19 @@ app.get('/#/profile', function (req, res) {
         		}
         		else{
         			res.send({
-        				message: 'successful signup'
+        				message: 'successful signup',
+                        user: user
         			});
         		}
         	})(req, res, next);
         });
 
 
-
+          // route for logging out
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.send({message:'logged out'});
+    });
 
 
         // app.post('/signup', passport.authenticate('local-signup', {
