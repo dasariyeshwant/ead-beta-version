@@ -12,6 +12,7 @@ var EmployeeService = angular.module('EmployeeService',[])
 			}).success(function(data){
 				if(data.message === 'successful signup'){
 					$localStorage.profile={};
+					$localStorage.profile.user_id = data.user._id;
 					$localStorage.profile.fname = data.user.local.fName;
 					$localStorage.profile.lname = data.user.local.lName;
      			 $location.path('/profile/details');
@@ -30,7 +31,7 @@ var EmployeeService = angular.module('EmployeeService',[])
 				
 				 // console.log("this is: "+data.user.local.fName);
 				 // console.log("this is: "+data.user._id);
-				// $localStorage.user_id = data.user._id;
+				 $localStorage.profile.user_id = data.user._id;
 				 //$localStorage.user= data.user;
 				first_name = data.user.local.fName;
 			// 	$localStorage.profile = {first_name: "",

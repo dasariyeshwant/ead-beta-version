@@ -152,8 +152,8 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
 
       $scope.savePersonalDetails = function(){
         
-        $localStorage.profile.fname = $localStorage.profile.fname;
-        $localStorage.profile.lname = $localStorage.profile.lname;
+        $localStorage.profile.fname = $scope.first_name;
+        $localStorage.profile.lname = $scope.last_name;
          $localStorage.profile.mobile_number = $scope.mobile_number;
          $localStorage.profile.address = $scope.address;
          $location.path('/profile/qualifications');
@@ -186,7 +186,14 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
         $localStorage.profile.spouse_h1b = $scope.spouse_h1b;
         $localStorage.profile.last_entry = $scope.last_entry;
         $location.path('/profile/resume');
-      }
+      };
+
+      $scope.updateProfile = function(){
+        $http.post('/update',{profile: $localStorage.profile})
+          .success(function(response){
+            console.log("updated successfully");
+          });
+      };
 
 
       $scope.logOut = function(){
