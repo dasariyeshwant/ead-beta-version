@@ -14,12 +14,8 @@ app.get('/#/profile', function (req, res) {
   console.log("the mail id is" +email);
 });
 
- // PROFILE SECTION =========================
-    // app.get('/api/profile', isLoggedIn, function(req, res) {
-    //     res.json( req.user);
-    // });
+ 
         // process the signup form
-
         app.post('/signup', function(req, res, next){
         	passport.authenticate('local-signup', function(err, user, info){
         		if(err){
@@ -36,23 +32,16 @@ app.get('/#/profile', function (req, res) {
 
 
           // route for logging out
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.send({message:'logged out'});
-    });
+            app.get('/logout', function(req, res) {
+                req.logout();
+                res.send({message:'logged out'});
+            });
 
 
-        // app.post('/signup', passport.authenticate('local-signup', {
-        //     successRedirect : '/#/profile', // redirect to the secure profile section
-        //     failureRedirect : '/#/signup', // redirect back to the signup page if there is an error
-        //     failureFlash : true // allow flash messages
-        // }));
+       
 
-
- // process the login form
-
-
- 		app.post('/login', function(req, res, next){
+        // process the login form
+		app.post('/login', function(req, res, next){
  			passport.authenticate('local-login', function(err, user, info){
  				if(err){
  					return next(err);
@@ -75,17 +64,6 @@ app.get('/#/profile', function (req, res) {
  				});	
  			})(req, res, next);
  		});
-
-        // app.post('/login', passport.authenticate('local-login', {
-        //     successRedirect : '/#/profile', // redirect to the secure profile section
-        //     failureRedirect : '/#/login', // redirect back to the signup page if there is an error
-        //     failureFlash : true // allow flash messages
-        // }));
-
-		
-
-
-
 };
 
 // route middleware to ensure user is logged in

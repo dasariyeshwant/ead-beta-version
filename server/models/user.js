@@ -34,7 +34,7 @@ var userSchema = mongoose.Schema({
         address      : String,
         education: [{school_name: String, passout_year: Number, degree: String, field_of_study: String, grade: String}],
         employement_history: [{company_name: String, duration_from: Number, duration_till: Number, title: String, location: String, description: String}],
-        skills:[{skill_name: String}],
+        skills: String,
         ead_status: String,
         spouse_h1b_validity: Date,
         last_entry_date: Date,

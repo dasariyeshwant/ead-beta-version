@@ -1,8 +1,9 @@
+
+/*service for creating new users and logging in===========================================================================*/
 var EmployeeService = angular.module('EmployeeService',[])
 	.service('AddEmployee', function($http, $location, $localStorage){
-			var first_name="";
-			var usr_details="";
-		
+			
+		//function for creating new user
 		this.addDetails = function(email, password, fname, lname){
 			$http.post('/signup',{
 				email: email,
@@ -11,6 +12,7 @@ var EmployeeService = angular.module('EmployeeService',[])
 				lName: lname
 			}).success(function(data){
 				if(data.message === 'successful signup'){
+					//initializing the profile object for local storage
 					$localStorage.profile={};
 					$localStorage.profile.user_id = data.user._id;
 					$localStorage.profile.fname = data.user.local.fName;
@@ -22,65 +24,44 @@ var EmployeeService = angular.module('EmployeeService',[])
 		};	
 
 
-
+		//function for logging in and retrieving all the user details from database
 		this.userDetails = function(user_email, user_password){
 			$http.post('/login',{
 				email: user_email,
 				password: user_password
 			}).success(function(data){
+				//initializing the profile object for local storage
 				$localStorage.profile={};
-				
-				 // console.log("this is: "+data.user.local.fName);
-				 // console.log("this is: "+data.user._id);
-				 $localStorage.profile.user_id = data.user._id;
-				 //$localStorage.user= data.user;
-				first_name = data.user.local.fName;
-			// 	$localStorage.profile = {first_name: "",
-			// 	last_name:"",
-
-			// }
-
+				//retrieving all the user information from database
+				$localStorage.profile.user_id = data.user._id;
 				$localStorage.profile.fname = data.user.local.fName;
 				$localStorage.profile.lname = data.user.local.lName;
 				$localStorage.profile.mobile_number = data.user.profile.mobile_number;
 				$localStorage.profile.address = data.user.profile.address;
-				if(data.message ==='successful login'){
+				$localStorage.profile.school_name = data.user.profile.education[0].school_name;
+				$localStorage.profile.passout_year = data.user.profile.education[0].passout_year;
+				$localStorage.profile.degree = data.user.profile.education[0].degree;
+				$localStorage.profile.field_of_study = data.user.profile.education[0].field_of_study;
+				$localStorage.profile.grade = data.user.profile.education[0].grade;
+				$localStorage.profile.company_name = data.user.profile.employement_history[0].company_name;
+				$localStorage.profile.duration_from = data.user.profile.employement_history[0].duration_from;
+				$localStorage.profile.duration_till = data.user.profile.employement_history[0].duration_till;
+				$localStorage.profile.title = data.user.profile.employement_history[0].title;
+				$localStorage.profile.location = data.user.profile.employement_history[0].location;
+				$localStorage.profile.description = data.user.profile.employement_history[0].description;
+				$localStorage.profile.skills = data.user.profile.skills;
+				$localStorage.profile.ead_status = data.user.profile.ead_status;
+				$localStorage.profile.spouse_h1b = data.user.profile.spouse_h1b_validity;
+				$localStorage.profile.last_entry = data.user.profile.last_entry_date;
+				$localStorage.profile.reference = data.user.profile.reference;
 
-				console.log("username1: "+first_name);
+				if(data.message ==='successful login'){
       			$location.path('/profile/details');
-      			return first_name;
-      			
-      			}
+     			}
 
 			});
 			
 		};
-
-
-		this.personal = first_name;
-
-		// this.personal = function(){
-		// 	usr_details = first_name;
-		// 	console.log("these details belong to: "+ usr_details);
-		// 	return usr_details;
-		// };
-
 });
-		//  var Employee = $resource('/api/employeeRegistration');
-		//  	var emp_email="";
-		//  	var usr_password="";
-		// this.email = function(email, password){
-		// 	emp_email = email;
-		// 	usr_password = password;
-		// 		return emp_email;
-		// 		return usr_password;
-		// };
-			
-		// this.personal = function(first_name){
-		// 	    var employee = new Employee();
-		// 	    employee.email = emp_email;
-		// 	    employee.password = usr_password;
-		// 	     employee.first_name = first_name;
-		// 	      employee.$save();
-		// };
+		
 	

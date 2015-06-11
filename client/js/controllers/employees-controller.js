@@ -1,116 +1,33 @@
+/*First controller============================================================================================================*/
+//this controller is used for signing up and logging in
 app.controller('mainCrl', ['$scope','$http', '$resource', '$localStorage', '$location', 'AddEmployee', function ($scope, $http, $resource, $localStorage, $location, AddEmployee) {
- //$scope.model = {};
- $scope.skill_set = [];
-
-
- // $scope.createUser = function(){
- //  $http.post('/signup',{
- //    email: $scope.employeeEmail,
- //    password: $scope.employeePassword,
- //    fName:    $scope.fName,
- //    lName:    $scope.lName
- //  }).success(function(data){
- //    if(data.message === 'successful signup'){
- //      $location.path('/profile');
- //    }
- //  });
- // };
-
-
+ 
+  //function for sending the new user details to service.js for signing up
  $scope.createUser = function(){
   $scope.signup = AddEmployee.addDetails($scope.employeeEmail, $scope.employeePassword, $scope.fName, $scope.lName);
  };
-//$scope.myProfile = {};
 
- //  var getProfileData = function(){
- //  $http.get('/api/profile').success(function(data){
- //    console.log('data of user',data);
- //  });
- // }
-
- // $scope.userLogin =function(){
- //  $http.post('/login',{
- //    email: $scope.employeeEmail,
- //    password: $scope.employeePassword
- //  }).success(function(data){
- //    console.log("this is: "+data.username);
- //    $scope.first_name = data.username;
- //    if(data.message ==='successful login'){
- //      $location.path('/profile');
- //    }
- //  });
- // };
-
-
+//function for sending the existing user details to service.js for logging in
 $scope.userLogin = function(){
     $scope.login = AddEmployee.userDetails($scope.employeeEmail, $scope.employeePassword);
     
 };
-
-
-
-//   // $scope.addNewSkill = function() {
-//   //  var newItemNo = $scope.skill_set.length+1;
-//   //   $scope.skill_set.push({});
-//   // };
-    
-//   // $scope.removeSkill = function() {
-//   //   var lastItem = $scope.skill_set.length-1;
-//   //   $scope.skill_set.splice(lastItem);
-//   // };
-
-//   // var skillNames = [];
-//   // for (skill in $scope.skill_set){
-//   //   skillNames.push(skill.skill_Name);
-//   // }
-//   // var employeeSkills = {'skill_name': skillNames};
-//   //   console.log('skill set are' +employeeSkills);
-
-//   var Employee = $resource('/api/employeeRegistration');
-
-//   // Employee.query(function (results) {
-//   //   $scope.employees = results;
-//   // });
-
-//   // $scope.employees = [];
-
-//   // $scope.nextSection = function(){
-//   //   $scope.email = AddEmployee.email($scope.employeeEmail, $scope.employeePassword);
-    
-//   // };
-
  
-
-//   // $scope.createMeetup = function () {
-//   //   var employee = new Employee();
-//   //   employee.email = $scope.employeeEmail;
-//   //   employee.password = $scope.employeePassword;
-//   //   employee.first_name = $scope.first_name;
-//   //   employee.last_name = $scope.last_name;
-//   //   employee.mobile_number = $scope.mobile_number;
-//   //   console.log("the skill set is"+ $scope.skill_set);
-//   //   employee.skills =[{'skill_name': $scope.skill_set}] ;
-//   //   //employee.skills.skill_name = $scope.model.skill_set;
-//   //   employee.address = $scope.address;
-//   //   employee.$save(function (result) {
-//   //     $scope.employees.push(result);
-//   //     $scope.employeeName = '';
-//   //     $location.path("success");
-//   //   });
-//   // }
-  
 }]);
 
+
+/*Second controller=============================================================================================================*/
+
+//this controller is used in all the form views
 app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$location', 'AddEmployee', function ($scope, $resource, $http, $localStorage, $location, AddEmployee){
-        
+      /*function for getting all the input fields values as soon as user logs in  */
       var init = function(){
 
         //personal Details
            $scope.first_name = $localStorage.profile.fname; 
            $scope.last_name = $localStorage.profile.lname;
-
            $scope.mobile_number = $localStorage.profile.mobile_number;
-            $scope.address = $localStorage.profile.address;
+           $scope.address = $localStorage.profile.address;
         //educational Details
            $scope.school_name = $localStorage.profile.school_name;
            $scope.passout_year = $localStorage.profile.passout_year;
@@ -135,21 +52,9 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
           //$scope.first_name = AddEmployee.personal;
           console.log("welcome : "+$scope.first_name);
       };    
-      init();
-      
-      $scope.updateDetails = function(){
-        $http.post('/update',{
-           id: $localStorage.user,
-          fName: $scope.first_name,
-          lName: $scope.last_name,
-          address: $scope.address
-        }).success(function(data){
-          console.log("address has been changed") ;
-         // console.log("new id field is: "+id);
-        });
-      };
-
-
+      init();       //function calling for reading all the values into input fields
+ 
+      //function for saving the personal details to local storage
       $scope.savePersonalDetails = function(){
         
         $localStorage.profile.fname = $scope.first_name;
@@ -159,7 +64,7 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
          $location.path('/profile/qualifications');
       };
 
-
+      //function for saving the qualification details to local storage
       $scope.saveQualifications = function(){
         $localStorage.profile.school_name = $scope.school_name;
         $localStorage.profile.passout_year = $scope.passout_year;
@@ -175,12 +80,13 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
         $location.path('/profile/skills');
       };
 
-
+      //function for saving the skills details to local storage
       $scope.saveSkills = function(){
         $localStorage.profile.skills = $scope.skills;
         $location.path('/profile/visaStatus');
       };
 
+      //function for saving the visa details to local storage
       $scope.saveVisaStatus = function(){
         $localStorage.profile.ead_status = $scope.ead_status;
         $localStorage.profile.spouse_h1b = $scope.spouse_h1b;
@@ -188,28 +94,22 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
         $location.path('/profile/resume');
       };
 
+      //function for saving the resume details to local storage and the updating the values in database
       $scope.updateProfile = function(){
+        //console.log("prof: ", profile);
+        $localStorage.profile.reference = $scope.reference;
         $http.post('/update',{profile: $localStorage.profile})
           .success(function(response){
             console.log("updated successfully");
           });
       };
 
-
+      //logout functionality for entire app
       $scope.logOut = function(){
         $http.get('/logout').success(function(response){
           if(response.message === 'logged out'){
             delete $localStorage.profile;
-            // delete $localStorage.fname;
-            // delete $localStorage.lname;
-            // delete $localStorage.user;
-            // delete $localStorage.user_id;
-            // delete $localStorage.first_name;
-            // delete $localStorage.last_name;
-            //$localStorage.save();
-            //$window.location.reload();
             console.log("successfully logged out");
-
             $location.path('/');
           }
           
@@ -217,6 +117,8 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
       };
 }]);
 
+
+/*Routing for entire app==================================================================================================*/
 app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
     .state('/',{
@@ -233,7 +135,6 @@ app.config(function($stateProvider, $urlRouterProvider){
       url:'/profile',
       templateUrl:'profile.html',
       controller:'secondCrl'
-      // resolve : {profile:function(c){console.log('called');}}
     })
     .state('/profile.personalDetails',{
       url:'/details',
@@ -266,4 +167,4 @@ app.config(function($stateProvider, $urlRouterProvider){
       controller:'mainCrl'
     });
     $urlRouterProvider.otherwise('/');
-})
+});

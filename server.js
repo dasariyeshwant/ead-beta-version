@@ -6,9 +6,9 @@ var express           = require('express'),
     flash    = require('connect-flash'),
     cookieParser = require('cookie-parser'),
     session      = require('express-session'),
-    employeeRegistrationController = require('./server/controllers/employees-controller');
+    employeeRegistrationController = require('./server/controllers/employees-controller');      //requiring user model
 
-mongoose.connect('mongodb://localhost:27017/ead-beta-v5');
+mongoose.connect('mongodb://localhost:27017/ead-beta-v6');      // for connecting to mongoDB
 
 app.use(bodyParser());
 
@@ -22,15 +22,9 @@ app.use('/js', express.static(__dirname + '/client/js'));
 app.engine('html', require('ejs').renderFile);
 
 // //REST API
-// app.get('/api/employeeRegistration', employeeRegistrationController.list);
-// app.post('/api/employeeRegistration', employeeRegistrationController.create);
-
 app.post('/update', employeeRegistrationController.update);
 
-// app.post('/update', function(req, res){
-//     console.log("the values for update are: "+req.body.profile.fname);
-//     console.log("the values for update are: "+req.body.profile.lname);
-// });
+
 
 // required for passport
  app.use(cookieParser()); // read cookies (needed for auth)
