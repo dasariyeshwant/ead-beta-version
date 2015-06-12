@@ -40,6 +40,7 @@ module.exports = function(passport) {
 
                 // if no user is found, return the message
                 if (!user)
+                   
                     return done(null, false, req.flash('loginMessage', 'No user found.'));
 
                 if (!user.validPassword(password))

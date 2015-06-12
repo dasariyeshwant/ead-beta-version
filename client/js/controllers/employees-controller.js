@@ -54,6 +54,11 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
       };    
       init();       //function calling for reading all the values into input fields
  
+
+
+
+
+      
       //function for saving the personal details to local storage
       $scope.savePersonalDetails = function(){
         
@@ -119,7 +124,38 @@ app.controller('secondCrl', ['$scope', '$resource', '$http', '$localStorage', '$
 
 
 /*Routing for entire app==================================================================================================*/
-app.config(function($stateProvider, $urlRouterProvider){
+app.config(function($httpProvider, $stateProvider, $urlRouterProvider){
+  
+  //checking if user is logged in for each ajax call
+  $httpProvider.interceptors.push(function($q, $location) { 
+        return {
+           response: function(response) { 
+            // do something on success
+            
+            return response;
+            },
+            responseError: function(response) {
+              if (response.status === 401)
+                $location.url('/login');
+              return $q.reject(response);
+            }
+          };
+        });
+   var checkLoggedin = function($q, $timeout, $http, $location, $rootScope){ 
+        var deferred = $q.defer();
+        $http.get('/loggedin').success(function(user){
+          if (user !== '0')
+            deferred.resolve();
+          else {
+            $rootScope.message = 'You need to log in.';
+            deferred.reject();
+            $location.url('/login');
+          }
+        });
+        return deferred.promise;
+      };
+
+      //routes for different views 
   $stateProvider
     .state('/',{
       url:'/',
@@ -134,32 +170,52 @@ app.config(function($stateProvider, $urlRouterProvider){
     .state('/profile',{
       url:'/profile',
       templateUrl:'profile.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
     })
     .state('/profile.personalDetails',{
       url:'/details',
       templateUrl:'personalDetails.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
     })
     .state('/profile.qualifications',{
       url:'/qualifications',
       templateUrl:'qualifications.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
+      
     })
     .state('/profile.skills',{
       url:'/skills',
       templateUrl:'skills.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
+      
     })
     .state('/profile.visaStatus',{
       url:'/visaStatus',
       templateUrl:'visaStatus.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
     })
     .state('/profile.resume',{
       url:'/resume',
       templateUrl:'resume.html',
-      controller:'secondCrl'
+      controller:'secondCrl',
+      resolve:{
+        loggedin: checkLoggedin
+      }
     })
     .state('/login',{
       url:'/login',

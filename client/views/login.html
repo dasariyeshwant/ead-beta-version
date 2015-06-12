@@ -1,9 +1,11 @@
+<div id = "alert_placeholder"></div>
+
  <div class="container-fluid login-page">
  	<div class="login-midway">
  		<h2 class="ead-hub">EAD Hubb</h2>
 		<hr class="thin"></hr>
 		
-		<form role="form" name="myForm" ng-submit="userLogin()" method="post" novalidate>
+		<form role="form" name="myForm" method="post" novalidate>
         	
 				<div class="row">
 					<div class="col-md-12 col-lg-12 col-sm-12">
@@ -26,7 +28,7 @@
 				</div>
 	
 				<center>
-					<button type="submit" name="submit" ng-disabled="myForm.email.$invalid || myForm.password.$invalid" class="btn btn-block btn-success signin-btn">Sign In</button>
+					<button type="submit" name="submit" ng-click="userLogin()" ng-disabled="myForm.email.$invalid || myForm.password.$invalid" class="btn btn-block btn-success signin-btn">Sign In</button>
 				</center>
       
 		 </form>
